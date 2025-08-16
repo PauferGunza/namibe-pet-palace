@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MapPin, Phone, Filter } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useDogsByBreed } from "@/hooks/useDogs";
+import { useDogsByBreed, type DogBreed } from "@/hooks/useDogs";
 import { useToast } from "@/hooks/use-toast";
 
 const DogsPage = () => {
-  const [selectedBreed, setSelectedBreed] = useState<"all" | import("@/hooks/useDogs").DogBreed>("all");
+  const [selectedBreed, setSelectedBreed] = useState<"all" | DogBreed>("all");
   const { data: dogs, isLoading } = useDogsByBreed(selectedBreed);
   const { toast } = useToast();
 
@@ -74,7 +74,7 @@ const DogsPage = () => {
         {/* Filter */}
         <div className="flex items-center gap-4 mb-8">
           <Filter className="w-5 h-5 text-primary" />
-          <Select value={selectedBreed} onValueChange={(value) => setSelectedBreed(value as any)}>
+          <Select value={selectedBreed} onValueChange={(value) => setSelectedBreed(value as "all" | DogBreed)}>
             <SelectTrigger className="w-64 glass">
               <SelectValue placeholder="Filtrar por raça" />
             </SelectTrigger>

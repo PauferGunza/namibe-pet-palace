@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingBag, Package, Filter } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useAccessoriesByCategory } from "@/hooks/useAccessories";
+import { useAccessoriesByCategory, type AccessoryCategory } from "@/hooks/useAccessories";
 import { useToast } from "@/hooks/use-toast";
 
 const AccessoriesPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<"all" | import("@/hooks/useAccessories").AccessoryCategory>("all");
+  const [selectedCategory, setSelectedCategory] = useState<"all" | AccessoryCategory>("all");
   const { data: accessories, isLoading } = useAccessoriesByCategory(selectedCategory);
   const { toast } = useToast();
 
@@ -69,7 +69,7 @@ const AccessoriesPage = () => {
         {/* Filter */}
         <div className="flex items-center gap-4 mb-8">
           <Filter className="w-5 h-5 text-primary" />
-          <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as any)}>
+          <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as "all" | AccessoryCategory)}>
             <SelectTrigger className="w-64 glass">
               <SelectValue placeholder="Filtrar por categoria" />
             </SelectTrigger>
